@@ -1,0 +1,44 @@
+import random
+import math
+
+def mse(targets, predicts):
+    return sum((t - p) ** 2 for t, p in zip(targets, predicts)) / len(predicts)
+
+def mae(targets, predicts):
+    return sum(abs(t - p) for t, p in zip(targets, predicts)) / len(predicts)
+
+def rmse(targets, predicts):
+    return math.sqrt(mse(targets, predicts))
+
+def exercise3(num_samples, loss_name):
+    if not str(num_samples).isnumeric():
+        print("Number of samples must be an integer.")
+        return False
+    else:
+        predicts = []
+        targets = []
+        
+        for i in range(num_samples):
+            predict = random.uniform(0.0, 10.0)
+            target = random.uniform(0.0, 10.0)
+            
+            predicts.append(predict)
+            targets.append(target)
+            
+            print("Loss name: " + loss_name + f", Sample: {i}, predict = {predict}, target = {target}")
+
+        if loss_name == "MSE":
+            loss = mse(targets, predicts)
+            print(f"Loss: {loss}")
+        elif loss_name == "MAE":
+            loss = mae(targets, predicts)
+            print(f"Loss: {loss}")
+        elif loss_name == "RMSE":
+            loss = rmse(targets, predicts)
+            print(f"Loss: {loss}")
+        
+        return True
+
+num_samples = int(input("Number of samples: "))
+loss_name = input("Loss name (MAE, MSE, RMSE): ")
+exercise3(num_samples, loss_name)
