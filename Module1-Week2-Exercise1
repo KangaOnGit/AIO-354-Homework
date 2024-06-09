@@ -1,0 +1,18 @@
+list_input = input("List: ")
+
+arr = []
+
+for i in list_input.split(","):
+    arr.append(int(i))
+
+k = int(input('Sliding Window size: '))
+
+if k > len(arr):
+    print("Sliding Window Size must be smaller than the length of the list.")
+else:
+    pivot = []
+    
+    for j in range(len(arr) - k + 1):
+        new_window  = arr[j: j + k]
+        pivot.append(max(new_window))
+    print (pivot)
