@@ -1,4 +1,4 @@
-def main(word):
+def count_chars(word):
     arr = list(word)
     
     counts = {} 
@@ -9,4 +9,4 @@ def main(word):
     print(counts)
         
 word = input("Word: ")
-main(word)
+count_chars(word)
