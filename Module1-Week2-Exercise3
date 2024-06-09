@@ -1,4 +1,4 @@
-def main(file_path):
+def word_count(file_path):
     
     file = open(file_path, "r")
     arr = file.read().split()
@@ -11,4 +11,4 @@ def main(file_path):
 
 
 file_path = input("Link to txt.File: ")
-main(file_path)
+word_count(file_path)
