@@ -1,0 +1,12 @@
+def main(word):
+    arr = list(word)
+    
+    counts = {} 
+    
+    for i in arr:
+        counts[i] = counts.get(i, 0) + 1
+
+    print(counts)
+        
+word = input("Word: ")
+main(word)
