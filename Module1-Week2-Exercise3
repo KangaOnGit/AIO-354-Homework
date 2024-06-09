@@ -1,0 +1,14 @@
+def main(file_path):
+    
+    file = open(file_path, "r")
+    arr = file.read().split()
+    counts = {}
+    for i in arr:
+        counts[i] = counts.get(i, 0) + 1    
+        
+    for j in counts:
+        print(f"{j}: {counts[j]}")
+
+
+file_path = input("Link to txt.File: ")
+main(file_path)
