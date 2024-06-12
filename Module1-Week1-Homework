@@ -1,34 +1,37 @@
-#Exercise 1
+# Exercise 1
 
-def calc_F1score(tp,fp, fn):
-    
+import random
+import math
+
+
+def calc_F1score(tp, fp, fn):
+
     if type(tp) != int:
-        print ("tp must be int")
+        print("tp must be int")
         exit()
-        
-    if type (fn) != int:
-        print ('fn must be int')
+
+    if type(fn) != int:
+        print('fn must be int')
         exit()
-        
-    if type (fp) != int:
-        print ("fp must be int")
+
+    if type(fp) != int:
+        print("fp must be int")
         exit()
     if tp < 0 or fp < 0 or fn < 0:
-        
-        print ("tp, fp and fn must be greater than 0")
+
+        print("tp, fp and fn must be greater than 0")
         exit()
-        
+
     Precision = tp/(tp+fp)
-    print (f"Precision is {Precision}")
+    print(f"Precision is {Precision}")
     Recall = tp/(tp + fn)
-    print (f"Recall is {Recall}")
-    
+    print(f"Recall is {Recall}")
+
     F1_score = 2*(Precision * Recall)/(Precision + Recall)
-    print (f"F1-score is {F1_score}")
+    print(f"F1-score is {F1_score}")
 
-#Exercise 2
+# Exercise 2
 
-import math
 
 def calc_sig_RElu_elu(x, activation_function):
     def is_number(x):
@@ -40,7 +43,7 @@ def calc_sig_RElu_elu(x, activation_function):
         return True
 
     if not is_number(x):
-       exit()
+        exit()
 
     if activation_function != "relu" and activation_function != "elu" and activation_function != "sigmoid":
         print(activation_function + " is not supported")
@@ -57,19 +60,20 @@ def calc_sig_RElu_elu(x, activation_function):
             a = 0.01
             print(f"elu: f({x}) = {x if x >= 0 else a * (math.exp(x) - 1)}")
 
-#Exercise 3
+# Exercise 3
 
-import random
-import math
 
 def mse(targets, predicts):
     return sum((t - p) ** 2 for t, p in zip(targets, predicts)) / len(predicts)
 
+
 def mae(targets, predicts):
     return sum(abs(t - p) for t, p in zip(targets, predicts)) / len(predicts)
 
+
 def rmse(targets, predicts):
     return math.sqrt(mse(targets, predicts))
+
 
 def calc_loss(num_samples, loss_name):
     if not str(num_samples).isnumeric():
@@ -78,15 +82,16 @@ def calc_loss(num_samples, loss_name):
     else:
         predicts = []
         targets = []
-        
+
         for i in range(num_samples):
             predict = random.uniform(0.0, 10.0)
             target = random.uniform(0.0, 10.0)
-            
+
             predicts.append(predict)
             targets.append(target)
-            
-            print("Loss name: " + loss_name + f", Sample: {i}, predict = {predict}, target = {target}")
+
+            print("Loss name: " + loss_name +
+                  f", Sample: {i}, predict = {predict}, target = {target}")
 
         if loss_name == "MSE":
             loss = mse(targets, predicts)
@@ -97,48 +102,53 @@ def calc_loss(num_samples, loss_name):
         elif loss_name == "RMSE":
             loss = rmse(targets, predicts)
             print(f"Loss: {loss}")
-        
+
         return True
+
 
 num_samples = int(input("Number of samples: "))
 loss_name = input("Loss name (MAE, MSE, RMSE): ")
 calc_loss(num_samples, loss_name)
 
-#Exercise 4
+# Exercise 4
 
-import math
 
 def sin(radian, num):
     return sum((-1)**n * radian**(2*n+1) / math.factorial(2*n+1) for n in num)
 
+
 def cos(radian, num):
     return sum((-1)**n * radian**(2*n) / math.factorial(2*n) for n in num)
+
 
 def sinh(radian, num):
     return sum(radian**(2*n + 1) / math.factorial(2*n + 1) for n in num)
 
+
 def cosh(radian, num):
     return sum(radian**(2*n) / math.factorial(2*n) for n in num)
 
+
 def main(func, radian, num):
-    
+
     num_list = list(range(num))
-    
+
     if func == "sin":
         func1 = sin(radian, num_list)
         print(func1)
-        
+
     elif func == "cos":
         func1 = cos(radian, num_list)
         print(func1)
-        
+
     elif func == "sinh":
         func1 = sinh(radian, num_list)
         print(func1)
-        
+
     elif func == "cosh":
         func1 = cosh(radian, num_list)
         print(func1)
+
 
 radian = float(input("Radian: "))
 num = int(input("Value of n: "))
@@ -146,11 +156,12 @@ func = input("Function (sin, cos, cosh, sinh): ")
 
 main(func, radian, num)
 
-#Exercise 5
+# Exercise 5
+
 
 def calc_MD_nRE(y, y_hat, n, p):
-    print ((y**1/n - y_hat**1/n)**p)
-  
+    print((y**1/n - y_hat**1/n)**p)
+
 
 y = float(input("Predicted Value: "))
 y_hat = float(input("Actual Value: "))
