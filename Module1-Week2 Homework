@@ -1,0 +1,52 @@
+#Exercise 1
+
+list_input = input("List: ")
+
+arr = []
+
+for i in list_input.split(","):
+    arr.append(int(i))
+
+k = int(input('Sliding Window size: '))
+
+if k > len(arr):
+    print("Sliding Window Size must be smaller than the length of the list.")
+else:
+    pivot = []
+    
+    for j in range(len(arr) - k + 1):
+        new_window  = arr[j: j + k]
+        pivot.append(max(new_window))
+    print (pivot)
+
+#Exercise 2
+
+def count_chars(word):
+    arr = list(word)
+    
+    counts = {} 
+    
+    for i in arr:
+        counts[i] = counts.get(i, 0) + 1
+
+    print(counts)
+        
+word = input("Word: ")
+count_chars(word)
+
+#Exercise 3
+
+def word_count(file_path):
+    
+    file = open(file_path, "r")
+    arr = file.read().split()
+    counts = {}
+    for i in arr:
+        counts[i] = counts.get(i, 0) + 1    
+        
+    for j in counts:
+        print(f"{j}: {counts[j]}")
+
+
+file_path = input("Link to txt.File: ")
+word_count(file_path)
