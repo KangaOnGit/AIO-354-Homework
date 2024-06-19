@@ -1,3 +1,40 @@
+#Exercise 1
+
+import torch
+
+class Softmax(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, tensor: torch.Tensor):
+        exp_tensor = torch.exp(tensor)
+        denom_softmax = torch.sum(exp_tensor)
+        return exp_tensor / denom_softmax
+
+
+class SoftmaxStable(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, tensor: torch.Tensor):
+        max_tensor = torch.max(tensor)
+        exp_tensor = torch.exp(tensor - max_tensor)
+        denom_softmax_stable = torch.sum(exp_tensor)
+        return exp_tensor / denom_softmax_stable
+
+
+data = torch.Tensor([1, 2, 300000000])
+
+
+softmax = Softmax()
+output = softmax.forward(data)
+print("Standard Softmax:", output)
+
+
+softmax_stable = SoftmaxStable()
+output_stable = softmax_stable.forward(data)
+print("Stable Softmax:", output_stable)
+
 #Exercise 2
 
 class Ward:
