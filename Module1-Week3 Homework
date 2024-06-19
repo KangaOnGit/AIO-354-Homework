@@ -1,0 +1,88 @@
+#Exercise 2
+
+class Ward:
+    def __init__(self, name):
+        self.name = name
+        self.people = []
+    
+    def add_person(self, person):
+        self.people.append(person)
+    
+    def count_doctor(self):
+        count = 0
+        for person in self.people:
+            if person.job == "Doctor":
+                count += 1
+        return count    
+    
+    def sort_age(self):
+        
+        self.ListByAge = [person.YoB for person in self.people]
+        
+       
+        self.ListByAge.sort(reverse=True)
+        
+        
+        sorted_people = []
+        for yob in self.ListByAge:
+            for person in self.people:
+                if person.YoB == yob:
+                    sorted_people.append(person)
+                    
+                    self.people.remove(person)
+                    break
+        
+        
+        self.people = sorted_people
+        
+    def describe(self):
+        print(f"Ward Name: {self.name}")
+        for person in self.people:
+            description = person.describe()
+            print(description)
+        
+    def compute_average(self):
+        AverageAgeOfTeachers = [person.YoB for person in self.people if person.job == "Teacher"]
+        return sum(AverageAgeOfTeachers) / len(AverageAgeOfTeachers) if AverageAgeOfTeachers else 0
+            
+class Person:
+    def __init__(self, name, YoB):
+        self.name = name 
+        self.YoB = YoB
+        self.describe_parts = [f"Name: {self.name}", f"YoB: {self.YoB}"]
+        
+    def describe(self): 
+        return " - ".join(self.describe_parts)
+
+class Student(Person):
+    def __init__(self, name, YoB, grade):
+        super().__init__(name, YoB)
+        self.grade = grade
+        self.job = "Student"
+        
+    def describe(self):
+        self.describe_parts.insert(0, f"{self.job}")
+        self.describe_parts.append(f"Grade: {self.grade}")
+        return " - ".join(self.describe_parts)
+
+class Doctor(Person):
+    def __init__(self, name, YoB, specialist):
+        super().__init__(name, YoB)
+        self.specialist = specialist
+        self.job = "Doctor"
+        
+    def describe(self):
+        self.describe_parts.insert(0, f"{self.job}")
+        self.describe_parts.append(f"Specialist: {self.specialist}")
+        return " - ".join(self.describe_parts)
+
+class Teacher(Person):
+    def __init__(self, name, YoB, subject):
+        super().__init__(name, YoB)
+        self.subject = subject
+        self.job = "Teacher"
+        
+    def describe(self):
+        self.describe_parts.insert(0, f"{self.job}")
+        self.describe_parts.append(f"Specialist: {self.subject}")
+        return " - ".join(self.describe_parts)
