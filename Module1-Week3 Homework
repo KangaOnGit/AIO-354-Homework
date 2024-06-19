@@ -1,0 +1,186 @@
+#Exercise 1
+
+import torch
+
+class Softmax(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, tensor: torch.Tensor):
+        exp_tensor = torch.exp(tensor)
+        denom_softmax = torch.sum(exp_tensor)
+        return exp_tensor / denom_softmax
+
+
+class SoftmaxStable(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, tensor: torch.Tensor):
+        max_tensor = torch.max(tensor)
+        exp_tensor = torch.exp(tensor - max_tensor)
+        denom_softmax_stable = torch.sum(exp_tensor)
+        return exp_tensor / denom_softmax_stable
+
+
+data = torch.Tensor([1, 2, 300000000])
+
+
+softmax = Softmax()
+output = softmax.forward(data)
+print("Standard Softmax:", output)
+
+
+softmax_stable = SoftmaxStable()
+output_stable = softmax_stable.forward(data)
+print("Stable Softmax:", output_stable)
+
+#Exercise 2
+
+class Ward:
+    def __init__(self, name):
+        self.name = name
+        self.people = []
+    
+    def add_person(self, person):
+        self.people.append(person)
+    
+    def count_doctor(self):
+        count = 0
+        for person in self.people:
+            if person.job == "Doctor":
+                count += 1
+        return count    
+    
+    def sort_age(self):
+        
+        self.ListByAge = [person.YoB for person in self.people]
+        
+       
+        self.ListByAge.sort(reverse=True)
+        
+        
+        sorted_people = []
+        for yob in self.ListByAge:
+            for person in self.people:
+                if person.YoB == yob:
+                    sorted_people.append(person)
+                    
+                    self.people.remove(person)
+                    break
+        
+        
+        self.people = sorted_people
+        
+    def describe(self):
+        print(f"Ward Name: {self.name}")
+        for person in self.people:
+            description = person.describe()
+            print(description)
+        
+    def compute_average(self):
+        AverageAgeOfTeachers = [person.YoB for person in self.people if person.job == "Teacher"]
+        return sum(AverageAgeOfTeachers) / len(AverageAgeOfTeachers) if AverageAgeOfTeachers else 0
+            
+class Person:
+    def __init__(self, name, YoB):
+        self.name = name 
+        self.YoB = YoB
+        self.describe_parts = [f"Name: {self.name}", f"YoB: {self.YoB}"]
+        
+    def describe(self): 
+        return " - ".join(self.describe_parts)
+
+class Student(Person):
+    def __init__(self, name, YoB, grade):
+        super().__init__(name, YoB)
+        self.grade = grade
+        self.job = "Student"
+        
+    def describe(self):
+        self.describe_parts.insert(0, f"{self.job}")
+        self.describe_parts.append(f"Grade: {self.grade}")
+        return " - ".join(self.describe_parts)
+
+class Doctor(Person):
+    def __init__(self, name, YoB, specialist):
+        super().__init__(name, YoB)
+        self.specialist = specialist
+        self.job = "Doctor"
+        
+    def describe(self):
+        self.describe_parts.insert(0, f"{self.job}")
+        self.describe_parts.append(f"Specialist: {self.specialist}")
+        return " - ".join(self.describe_parts)
+
+class Teacher(Person):
+    def __init__(self, name, YoB, subject):
+        super().__init__(name, YoB)
+        self.subject = subject
+        self.job = "Teacher"
+        
+    def describe(self):
+        self.describe_parts.insert(0, f"{self.job}")
+        self.describe_parts.append(f"Specialist: {self.subject}")
+        return " - ".join(self.describe_parts)
+
+#Exercise 3
+
+class Stack:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.stack = []
+        
+    def is_empty(self):
+        if len(self.stack) == 0:
+            return True
+        else:
+            return False
+        
+    def is_full(self):
+        if len(self.stack) == self.capacity:
+            return True
+        else:
+            return False
+     
+    def pop(self):
+        pivot = self.stack[len(self.stack) - 1] #Used to store last digit of List Stack/self.stack before erasing it into oblivion <3
+        self.stack.remove(self.stack[len(self.stack) - 1])
+        return pivot
+    
+    def top(self):
+        return self.stack[len(self.stack) - 1]
+    
+    def push(self, num_value):
+        self.PushNumber = num_value
+        self.stack.append(self.PushNumber)
+              
+#Exercise 4
+
+class Queue:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.QueueList = []
+    def is_empty(self):
+        if len(self.QueueList) == 0:
+            return True
+        else:
+            return False
+    
+    def is_full(self):
+        if len(self.QueueList) == self.capacity:
+            return True
+        else:
+            return False
+    
+    def dequeue(self):
+        pivot = self.QueueList[0]
+        self.QueueList.remove(self.QueueList[0])
+        return pivot
+    
+    def enqueue(self, Val_Enqueue):
+        self.EnqueueVal = Val_Enqueue
+        self.QueueList.append(self.EnqueueVal)
+    
+    def front(self):
+        return self.QueueList[0]
